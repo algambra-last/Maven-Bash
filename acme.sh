@@ -12,6 +12,12 @@ fi
 release=$1
 branch=Release/$release
 
+pattern="^[0-9]+\.[0-9]+$"
+if [[ ! $release =~ $pattern ]]
+    then
+        echo "Wrong format. Release must be entered as digit(s).digit(s) Example: 1.3"
+fi
+
 # Clean workspace  
 cd
 [[ -d sbdemo ]] && rm -rf sbdemo
