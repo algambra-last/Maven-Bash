@@ -16,6 +16,7 @@ pattern="^[0-9]+\.[0-9]+$"
 if [[ ! $release =~ $pattern ]]
     then
         echo "Wrong format. Release must be entered as digit(s).digit(s) Example: 1.3"
+        exit 1
 fi
 
 # Clean workspace  
