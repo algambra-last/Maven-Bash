@@ -11,11 +11,11 @@ fi
 
 release=$1
 branch=Release/$release
-
 pattern="^[0-9]+\.[0-9]+$"
+
 if [[ ! $release =~ $pattern ]]
     then
-        echo "Wrong format. Release must be entered as digit(s).digit(s) Example: 1.3"
+        echo "Wrong format. Release must be entered as digit(s).digit(s) Example: 1.3 "
         exit 1
 fi
 
@@ -32,9 +32,9 @@ cd
 git clone https://github.com/ospector/sbdemo.git
 cd ~/sbdemo
 branch_exists=`git branch -a | grep $branch | wc -l`
-if [ branch_exists == 1 ]
+if [ $branch_exists == 1 ]
     then
-        echo "Branch already exists"
+        echo "Branch already exists  $branch"
         git checkout $branch
         last_tag=`git describe --abbrev=0 --tags`
         if [ -z "$last_tag" ]
@@ -53,7 +53,8 @@ if [ branch_exists == 1 ]
         if [ $? ]
             then
                 echo "Build succeeded"
-                sed -i "s#<version>$build</version>#<version>$release-SNAPSHOT</version>#" pom.xml
+#                sed -i "s#<version>$build</version>#<version>$release-SNAPSHOT</version>#" pom.xml
+                git checkout -- pom.xml
                 git add *
                 git commit -m "Build $build"
                 git tag $new_tag
